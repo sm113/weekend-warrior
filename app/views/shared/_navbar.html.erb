@@ -1,40 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <%= link_to "Weekend Warrior", root_path, class: "navbar-brand fw-bold" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <%= link_to "Events", events_path, class: "nav-link px-3" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Organizations", organizations_path, class: "nav-link px-3" %>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "New Organization", new_organization_path, class: "nav-link px-3" %>
-          </li>
-          <% if current_user.organizations.any? %>
-            <li class="nav-item">
-              <%= link_to "New Event", new_event_path, class: "nav-link px-3" %>
-            </li>
-          <% end %>
-          <li class="nav-item">
-            <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link px-3 text-danger" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Sign In", new_user_session_path, class: "nav-link px-3" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link px-3 text-danger" %>
-          </li>
+<nav class="custom-navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <%= link_to "Weekend Warrior", root_path %>
+    </div>
+    
+    <div class="navbar-links">
+      <%= link_to "EVENTS", events_path %>
+      <%= link_to "ORGANIZATIONS", organizations_path %>
+      
+      <% if user_signed_in? %>
+        <%= link_to "NEW ORGANIZATION", new_organization_path %>
+        <% if current_user.organizations.any? %>
+          <%= link_to "NEW EVENT", new_event_path %>
         <% end %>
-      </ul>
+        <%= button_to "SIGN OUT", destroy_user_session_path, method: :delete, class: "navbar-button", form: { data: { turbo: false } } %>
+      <% else %>
+        <%= link_to "SIGN IN", new_user_session_path %>
+        <%= link_to "SIGN UP", new_user_registration_path %>
+      <% end %>
     </div>
   </div>
 </nav>

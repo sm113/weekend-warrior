@@ -1,2 +1,39 @@
-<h1>Organizations#index</h1>
-<p>Find me in app/views/organizations/index.html.erb</p>
+<div class="events-container">
+  <h1 class="text-center mb-4">Your Organizations</h1>
+  
+  <% if @organizations.empty? %>
+    <div class="text-center">
+      <p class="mb-4">You haven't created any organizations yet.</p>
+      <%= link_to "Create Your First Organization", new_organization_path, class: "btn btn-danger" %>
+    </div>
+  <% else %>
+    <div class="row justify-content-center">
+      <% @organizations.each do |organization| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <% if organization.logo.present? %>
+              <img src="<%= organization.logo %>" class="card-img-top" alt="<%= organization.name %>">
+            <% else %>
+              <div class="card-img-top bg-dark d-flex align-items-center justify-content-center" style="height: 150px;">
+                <span class="text-muted">No logo</span>
+              </div>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= organization.name %></h5>
+              <p class="card-text"><%= organization.description.truncate(100) if organization.description %></p>
+              
+              <div class="mt-auto pt-3">
+                <div class="d-grid gap-2">
+                  <%= link_to "Create Event", new_event_path(organization_id: organization.id), class: "btn btn-danger" %>
+                  <%= button_to "Delete", organization_path(organization), method: :delete, 
+                      data: { turbo_confirm: "Are you sure? This will delete all events associated with this organization." }, 
+                      class: "btn btn-outline-danger mt-2", form_class: "d-grid" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

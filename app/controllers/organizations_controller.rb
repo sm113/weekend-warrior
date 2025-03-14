@@ -4,7 +4,8 @@ class OrganizationsController < ApplicationController
   before_action :check_owner, only: [:edit, :update, :destroy]
 
   def index
-    @organizations = Organization.all
+    @organizations = current_user.organizations if user_signed_in?
+    @organizations ||= []
   end
 
   def show

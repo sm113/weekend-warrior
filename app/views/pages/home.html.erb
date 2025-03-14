@@ -1,16 +1,17 @@
-<% if current_page?(root_path) %>
-  <div id="splash" class="splash-screen">
-    <div class="splash-text">Your weekend awaits</div>
-  </div>
+<div id="splash-screen" class="splash-screen">
+  <div class="splash-text">Your weekend awaits</div>
+</div>
 
-  <script>
-    document.addEventListener("turbo:load", function() {
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+      // Fade out the text
+      document.querySelector('.splash-text').style.opacity = 0;
+      
+      // Redirect after fade animation completes
       setTimeout(function() {
-        document.querySelector('.splash-text').style.opacity = 0;
-        setTimeout(function() {
-          window.location.href = '<%= events_path %>';
-        }, 1000);
-      }, 2000);
-    });
-  </script>
-<% end %>
+        window.location.href = '<%= events_path %>';
+      }, 1000);
+    }, 2000);
+  });
+</script>
