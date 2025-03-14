@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
     @organization = current_user.organizations.build(organization_params)
     
     if @organization.save
-      redirect_to @organization, notice: 'Organization was successfully created.'
+      redirect_to organizations_path, notice: 'Organization was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end

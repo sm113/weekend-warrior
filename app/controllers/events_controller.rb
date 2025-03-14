@@ -2,7 +2,12 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   
   def index
-    @events = Event.includes(:organization).order(start_time: :asc)
+
+    events_with_date = Event.includes(:organization).where.not(start_time: nil).order(start_time: :asc)
+    
+    events_without_date = Event.includes(:organization).where(start_time: nil)
+    
+    @events = events_without_date + events_with_date
   end
   
   def show

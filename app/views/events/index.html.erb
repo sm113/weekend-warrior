@@ -4,25 +4,27 @@
   <div class="row justify-content-center">
     <% @events.each do |event| %>
       <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <% if event.image.present? %>
-            <img src="<%= event.image %>" class="card-img-top" alt="<%= event.title %>">
-          <% else %>
-            <div class="card-img-top bg-dark d-flex align-items-center justify-content-center">
-              <span class="text-muted">No image</span>
-            </div>
-          <% end %>
+        <div class="card event-card">
+          <div class="event-img-container">
+            <% if event.image.present? %>
+              <img src="<%= event.image %>" alt="<%= event.title %>" class="w-100">
+            <% else %>
+              <div class="d-flex align-items-center justify-content-center h-100">
+                <span class="text-muted">No image</span>
+              </div>
+            <% end %>
+          </div>
           <div class="card-body">
             <h5 class="card-title"><%= event.title %></h5>
             <h6 class="card-subtitle mb-2 text-muted">By <%= event.organization.name %></h6>
-            <p class="card-text"><%= event.description.truncate(100) %></p>
+            <p class="card-text"><%= event.description.truncate(100) if event.description %></p>
             <p class="card-text">
               <small class="text-muted">
                 <%= event.start_time.strftime("%b %d, %Y • %I:%M %p") %>
               </small>
             </p>
             <p class="card-text"><i class="bi bi-geo-alt"></i> <%= event.location %></p>
-            <%= link_to "View Details", event, class: "btn btn-danger mt-2" %>
+            <!-- View Details button removed -->
           </div>
         </div>
       </div>
