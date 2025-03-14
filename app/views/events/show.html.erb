@@ -1,0 +1,29 @@
+<div class="card bg-dark text-light">
+  <% if @event.image.present? %>
+    <img src="<%= @event.image %>" class="card-img-top" alt="<%= @event.title %>">
+  <% end %>
+  <div class="card-body">
+    <h1 class="card-title"><%= @event.title %></h1>
+    <h6 class="card-subtitle mb-3">
+      Organized by <%= link_to @event.organization.name, @event.organization, class: "text-danger" %>
+    </h6>
+    
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <p><strong>When:</strong> <%= @event.start_time.strftime("%A, %B %d, %Y") %></p>
+        <p><strong>Time:</strong> <%= @event.start_time.strftime("%I:%M %p") %> - 
+           <%= @event.end_time&.strftime("%I:%M %p") || "TBD" %></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Location:</strong> <%= @event.location %></p>
+      </div>
+    </div>
+    
+    <div class="card-text mb-4">
+      <h4>About this event:</h4>
+      <%= simple_format(@event.description) %>
+    </div>
+    
+    <%= link_to "Back to Events", events_path, class: "btn btn-secondary" %>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<%= form_with(model: event) do |form| %>
+  <% if event.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h4>
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="mb-3">
+    <%= form.label :organization_id, "Posting Organization", class: "form-label" %>
+    <%= form.collection_select :organization_id, @organizations, :id, :name, 
+        {prompt: "Select an organization"}, {class: "form-select bg-dark text-light"} %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control bg-dark text-light" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, rows: 4, class: "form-control bg-dark text-light" %>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= form.label :start_time, class: "form-label" %>
+      <%= form.datetime_local_field :start_time, class: "form-control bg-dark text-light" %>
+    </div>
+    <div class="col-md-6 mb-3">
+      <%= form.label :end_time, class: "form-label" %>
+      <%= form.datetime_local_field :end_time, class: "form-control bg-dark text-light" %>
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :location, class: "form-label" %>
+    <%= form.text_field :location, class: "form-control bg-dark text-light" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :image, "Event Image URL", class: "form-label" %>
+    <%= form.text_field :image, class: "form-control bg-dark text-light" %>
+  </div>
+  
+  <%= form.submit class: "btn btn-danger" %>
+<% end %>

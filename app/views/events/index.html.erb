@@ -1,0 +1,25 @@
+<h1>Upcoming Events</h1>
+
+<div class="row">
+  <% @events.each do |event| %>
+    <div class="col-md-4 mb-4">
+      <div class="card bg-dark text-light">
+        <% if event.image.present? %>
+          <img src="<%= event.image %>" class="card-img-top" alt="<%= event.title %>">
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= event.title %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">By <%= event.organization.name %></h6>
+          <p class="card-text"><%= event.description.truncate(100) %></p>
+          <p class="card-text">
+            <small class="text-muted">
+              <%= event.start_time.strftime("%A, %B %d, %Y at %I:%M %p") %>
+            </small>
+          </p>
+          <p class="card-text"><i class="bi bi-geo-alt"></i> <%= event.location %></p>
+          <%= link_to "View Details", event, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
